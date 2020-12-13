@@ -9,7 +9,8 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   password: {
     type: String,
@@ -20,11 +21,11 @@ const userSchema = new Schema({
     default: "empty-avatar.jpg"
   },
   createdAt: {
-    type: Date,
+    type: String,
     default: momemt().format("DD/MM/YYYY") + ";"+ momemt().format("hh:mm:ss")
   },
   updatedAt: {
-    type: Date,
+    type: String,
     default: momemt().format("DD/MM/YYYY") + ";"+ momemt().format("hh:mm:ss")
   }
 });
