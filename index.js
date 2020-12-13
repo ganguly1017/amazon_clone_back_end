@@ -9,13 +9,13 @@ const port = process.env.PORT;
 const database = require('./database');
 
 // user routes
-const userRoutes = require('./routes/users');
+const userRoutes = require('./routes/userRoutes');
 
 
 // middleware
 app.use(cors());
 app.use(morgan('dev'));
-app.use("/api/users", userRoutes);
+app.use("/api/user", userRoutes);
 
 
 // route
