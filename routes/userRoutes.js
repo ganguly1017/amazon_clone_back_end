@@ -9,6 +9,8 @@ const moment = require('moment');
 const User = require('./../models/User');
 const token_key = process.env.TOKEN_KEY;
 
+const verifyToken = require('./../middleware/verify_token');
+
 const storage = require('./strorage');
 
 // middleware setup
@@ -214,5 +216,6 @@ router.post(
       });
   }
 );
+
 
 module.exports = router;
