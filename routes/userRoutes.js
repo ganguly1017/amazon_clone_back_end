@@ -183,12 +183,26 @@ router.post(
               "status": false,
               "message": "Password don't match..."
             });
-          } 
+          }
+
+          // JSON Web Token Generate
+          let token = jwt.sign(
+            {
+              id: user._id,
+              email: user.email
+            },
+            token_key,
+            {
+              expiresIn: 3600
+            }
+          );
 
           // if login success
           return res.status(200).json({
             "status": true,
-            "message": "User login success"
+            "message": "User login success",
+            "token": token,
+            "user" : user
           });
         }
 
