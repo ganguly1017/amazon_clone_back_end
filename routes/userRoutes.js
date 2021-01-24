@@ -174,13 +174,13 @@ router.post(
             "status": false,
             "message": "User don't exists"
           });
-        } else{
+        } else {
 
           // match user password
           let isPasswordMatch = bcrypt.compareSync(req.body.password, user.password);
 
           // check is not password match
-          if (!isPasswordMatch){
+          if (!isPasswordMatch) {
             return res.status(401).json({
               "status": false,
               "message": "Password don't match..."
@@ -204,11 +204,11 @@ router.post(
             "status": true,
             "message": "User login success",
             "token": token,
-            "user" : user
+            "user": user
           });
         }
 
-      }).catch((error) => { 
+      }).catch((error) => {
         return res.status(502).json({
           "status": false,
           "message": "Database error..."
