@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const momemt = require('moment');
+const moment = require('moment');
 
 const userSchema = new Schema({
   username: {
@@ -22,11 +22,11 @@ const userSchema = new Schema({
   },
   createdAt: {
     type: String,
-    default: momemt().format("DD/MM/YYYY") + ";"+ momemt().format("hh:mm:ss")
+    default: moment().format("DD/MM/YYYY") + ";"+ moment().format("hh:mm:ss")
   },
   updatedAt: {
     type: String,
-    default: momemt().format("DD/MM/YYYY") + ";"+ momemt().format("hh:mm:ss")
+    default: moment().format("DD/MM/YYYY") + ";"+ moment().format("hh:mm:ss")
   }
 });
 

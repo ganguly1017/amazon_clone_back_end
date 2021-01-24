@@ -10,7 +10,7 @@ function verifyToken(req, res, next) {
   if (!token) {
     return res.status(404).json({
       "status": false,
-      "message": "JSON Web Toke Not Found..."
+      "message": "JSON Web Token Not Found..."
     });
   }
 

@@ -112,29 +112,56 @@ router.post(
 );
 
 // user profile pic upload route
-// Access: public
+// Access: private
 // url: http://localhost:500/api/users/uploadProfilePic
 // method: POST
 router.post(
   '/uploadProfilePic',
+  verifyToken,
   (req, res) => {
     let upload = storage.getProfilePicUpload();
 
     upload(req, res, (error) => {
-      console.log(req.file);
 
+      // If profile pic upload has errors
       if (error) {
         return res.status(400).json({
           "status": false,
           "error": error,
           "message": "File upload fail..."
         });
-      } else {
-        return res.status(200).json({
-          "status": true,
-          "message": "File upload success"
+      }
+
+      // if profile pic not uploaded
+      if (!req.file) {
+        return res.status(400).json({
+          "status": false,
+          "message": "Please upload profile pic..."
         });
       }
+
+      let temp = {
+        profile_pic: req.file.filename,
+        updatedAt: moment().format("DD/MM/YYYY") + ";" + moment().format("hh:mm:ss")
+      };
+
+      // store new profile pic name to user document
+      User.findOneAndUpdate({ _id: req.user.id }, { $set: temp })
+        .then(user => {
+
+          return res.status(200).json({
+            "status": true,
+            "message": "File upload success",
+            "profile_pic": "http://localhost:500/profile_pic/" + req.file.filename
+          });
+
+        })
+        .catch(error => {
+          return res.status(502).json({
+            "status": false,
+            "message": "Database error..."
+          });
+        });
     });
   }
 );
