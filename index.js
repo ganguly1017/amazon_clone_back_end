@@ -15,6 +15,7 @@ const userRoutes = require('./routes/userRoutes');
 // middleware
 app.use(cors());
 app.use(morgan('dev'));
+app.use(express.static('public'));
 app.use("/api/user", userRoutes);
 
 

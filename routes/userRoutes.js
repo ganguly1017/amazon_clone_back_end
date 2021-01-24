@@ -9,6 +9,8 @@ const moment = require('moment');
 const User = require('./../models/User');
 const token_key = process.env.TOKEN_KEY;
 
+const storage = require('./strorage');
+
 // middleware setup
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -104,6 +106,34 @@ router.post(
     });
 
   }
+);
+
+// user register route
+// Access: public
+// url: http://localhost:500/api/users/uploadProfilePic
+// method: POST
+router.post(
+  '/uploadProfilePic',
+  (req, res) => {
+    let upload = storage.getProfilePicUpload();
+
+    upload(req, res, (error) => {
+      console.log(req.file);
+      
+      if (error){
+        return res.status(400).json({
+          "status": false,
+          "error": error,
+          "message": "File upload fail..."
+        });
+      } else {
+        return res.status(200).json({
+          "status": true,
+          "message": "File upload success"
+        });
+      }
+    });
+  } 
 );
 
 module.exports = router;
