@@ -280,7 +280,12 @@ router.post(
             "status": true,
             "message": "User login success",
             "token": token,
-            "user": user
+            "user": {
+              "email": user.email,
+              "username": user.username,
+              "profile_pic": user.profile_pic,
+              "id": user._id
+            }
           });
         }
 
