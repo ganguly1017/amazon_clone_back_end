@@ -379,7 +379,10 @@ router.put(
         return res.status(200).json({
           "status": true,
           "user": {
-            "username": user.username
+            "username": user.username,
+            "email": user.email,
+            "profile_pic": user.profile_pic,
+            "id": user._id
           }
         });
       }).catch(error => {
