@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const { check, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
+const fs = require('fs');
 
 const User = require('./../models/User');
 const token_key = process.env.TOKEN_KEY;
@@ -180,11 +181,21 @@ router.post(
       // store new profile pic name to user document
       User.findOneAndUpdate({ _id: req.user.id }, { $set: temp })
         .then(user => {
-
+          
+          if (user.profile_pic != 'empty-avatar.jpg'){
+            // remove old image
+            fs.unlinkSync("./public/profile_pic/"+user.profile_pic);
+          }
+          
           return res.status(200).json({
             "status": true,
             "message": "File upload success",
-            "profile_pic": "http://localhost:500/profile_pic/" + req.file.filename
+            "user": {
+              "username": user.username,
+              "email": user.email,
+              "id": user._id,
+              "profile_pic": req.file.filename
+            }
           });
 
         })
