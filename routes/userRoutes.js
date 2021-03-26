@@ -154,7 +154,9 @@ router.post(
       if (error) {
         return res.status(400).json({
           "status": false,
-          "error": error,
+          "error": {
+            "profile_pic": "validation.profile_pic_error"
+          },
           "message": "File upload fail..."
         });
       }
